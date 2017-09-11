@@ -13,7 +13,7 @@ public class MyList {
         this.description = description;
     }
 
-    private MyList[] myList = {
+    public static final MyList[] myList = {
             new MyList("item 1", "item 1 description"),
             new MyList("item 2", "item 2 description"),
             new MyList("item 3", "item 3 description"),
