@@ -2,9 +2,12 @@ package com.example.noureldeen.responsiveandnotification;
 
 import android.app.Fragment;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.TaskStackBuilder;
 import android.support.v7.app.NotificationCompat;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,15 +27,16 @@ public class ItemDescriptionFragment extends Fragment {
         @Override
         public void onClick(View view) {
             int mNotificationId = 1;
-            NotificationCompat.Builder mBuilder =
-                    (NotificationCompat.Builder) new NotificationCompat.Builder(getActivity())
-                            .setSmallIcon(R.mipmap.notification_icon)
-                            .setContentTitle("My notification")
-                            .setContentText("Hello World!");
-            NotificationManager mNotificationManager =
-                    (NotificationManager) getActivity().getSystemService(Context.NOTIFICATION_SERVICE);
-
-            mNotificationManager.notify(mNotificationId, mBuilder.build());
+            NotificationCompat.Builder builder = new NotificationCompat.Builder(getActivity());
+            builder.setContentTitle("First Notification");
+            builder.setContentText("say hello to my first notification");
+            builder.setSmallIcon(R.drawable.ic_stat_name);
+            Intent intent = new Intent(getActivity(), DetailsActivity.class);
+            TaskStackBuilder taskStackBuilder = TaskStackBuilder.create(getActivity());
+            taskStackBuilder.addNextIntentWithParentStack(intent);
+            builder.setContentIntent(taskStackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT));
+            NotificationManager notificationManager = (NotificationManager) getActivity().getSystemService(Context.NOTIFICATION_SERVICE);
+            notificationManager.notify(0, builder.build());
         }
     };
 
