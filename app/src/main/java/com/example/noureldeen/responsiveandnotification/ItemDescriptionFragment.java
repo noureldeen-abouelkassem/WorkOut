@@ -33,7 +33,10 @@ public class ItemDescriptionFragment extends Fragment {
             builder.setSmallIcon(R.drawable.ic_stat_name);
             Intent intent = new Intent(getActivity(), DetailsActivity.class);
             TaskStackBuilder taskStackBuilder = TaskStackBuilder.create(getActivity());
-            taskStackBuilder.addNextIntentWithParentStack(intent);
+            taskStackBuilder.addParentStack(TestActivity.class);
+            taskStackBuilder.addNextIntent(intent);
+            //as we see when we added adifferent parentStack the back button behaviour has been changed
+            //taskStackBuilder.addNextIntentWithParentStack(intent);
             builder.setContentIntent(taskStackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT));
             NotificationManager notificationManager = (NotificationManager) getActivity().getSystemService(Context.NOTIFICATION_SERVICE);
             notificationManager.notify(0, builder.build());
